@@ -15,6 +15,7 @@ num-traits = "0.2"
 rand="0.8.3"
 
 prompt = { git = "https://github.com/kobigurk/zkhack-prompt" }
+num-integer = "0.1.45"
 
 [patch.crates-io]
 ark-bls12-cheon = {path = "bls12_cheon"}

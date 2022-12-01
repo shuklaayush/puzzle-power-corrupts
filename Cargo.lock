@@ -220,6 +220,7 @@ dependencies = [
  "ark-ec 0.4.0-alpha.3",
  "ark-ff 0.4.0-alpha.3",
  "ark-std 0.3.0",
+ "num-integer",
  "num-traits",
  "prompt",
  "rand",
