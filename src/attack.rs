@@ -46,6 +46,7 @@ pub fn attack(P: G1, tau_P: G1, tau_d1_P: G1, Q: G2, tau_d2_Q: G2) -> i128 {
         IMPLEMENT YOUR ATTACK HERE
 
     */
+    // Order of the subgroup
     let q = bigInt_to_u128(Fr::MODULUS);
 
     // Compute pairings to get three elliptic curve points of the form g, g^a, g^a^d
@@ -65,18 +66,18 @@ pub fn attack(P: G1, tau_P: G1, tau_d1_P: G1, Q: G2, tau_d2_Q: G2) -> i128 {
     let eta = pow_sp(two, d, 80);
     let eta_inv = eta.inverse().unwrap();
 
-    // Given a < k0 < b
-    let a: u128 = 1089478584172543;
-    let b: u128 = 1089547303649280;
+    // Given A < k0 < B
+    let A: u128 = 1089478584172543;
+    let B: u128 = 1089547303649280;
 
-    // Rewrite inequality as 0 < k0 - a < b - a
-    // Solve for k0 - a using baby-step-giant-step
-    let gu0 = gd * pow_sp(eta_inv, a, 80);
+    // Rewrite inequality as 0 < (k0 - A) < B - A
+    // Solve for (k0 - A) using baby-step-giant-step
+    let gu0 = gd * pow_sp(eta_inv, A, 80);
     let gv0 = g;
 
-    let k0 = a + baby_step_giant_step(eta, b - a, &gu0, &gv0);
+    let k0 = A + baby_step_giant_step(eta, B - A, &gu0, &gv0);
 
-    println!("k0 : {k0}"); // 1089539821761426
+    println!("k0 : {k0}");
 
     // Compute k1
     let eta = pow_sp(two, (q - 1) / d, 80);
@@ -86,7 +87,7 @@ pub fn attack(P: G1, tau_P: G1, tau_d1_P: G1, Q: G2, tau_d2_Q: G2) -> i128 {
 
     let k1 = baby_step_giant_step(eta, d, &gu0, &gv0);
 
-    println!("k1: {k1}"); // 702091009
+    println!("k1 : {k1}");
 
     // Get k
     let k = k0 + k1 * (q - 1) / d;
